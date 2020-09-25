@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import form_field %}
+
+{% block title %} Index page {% endblock title %}
+
+{% block header %}
+    <h1>Welcome to the notebook</h1>
+{% endblock header %}
+
+{% block content %}
+    <form method="post">
+        {{ form.csrf_token }}
+        <div class="form-group required">
+            {{ form_field(form.body, class='form-control') }}
+        </div>
+        {{ form.submit(class='btn btn-secondary') }}
+    </form>
+
+    <br>
+
+    <h5>
+        Total {{ all_notes | length }} notes
+        <small class="float-right">
+            <a href="#bottom" title="Go Bottom">&darr;</a>
+        </small>
+    </h5>
+
+    <div class="list-group">
+        {% for note in all_notes %}
+            <a class="list-group-item, list-group-item-action flex-column">
+                <p class="mb-1">{{ note.body }}</p>
+                <small>{{ note.timestamp.strftime('%Y-%m-%d %H:%M') }}</small>
+            </a><br>
+        {% endfor %}
+    </div>
+{% endblock content %}

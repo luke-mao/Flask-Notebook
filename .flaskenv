@@ -1,0 +1,4 @@
+FLASK_APP=flask_notebook
+FLASK_ENV=development
+FLASK_RUN_HOST=localhost
+FLASK_RUN_PORT=9700
