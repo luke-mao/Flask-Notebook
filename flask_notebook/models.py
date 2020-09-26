@@ -6,6 +6,12 @@ from flask_notebook import db
 class DBNotes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(200))
-    timestamp = db.Column(db.DateTime, default=datetime.now, index=True)
+
+    # since we can modify the note
+    # so create two columns: creation time and last modified time
+    # during creation, both time are the same
+    current_time = datetime.now()
+    time_create = db.Column(db.DateTime, default=current_time)
+    time_last_modify = db.Column(db.DateTime, default=current_time, index=True)
 
 

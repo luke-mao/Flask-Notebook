@@ -9,7 +9,7 @@ from flask_notebook.forms import NewNoteForm
 @app.route('/', methods=['GET', 'POST'])
 def index():
     # query the database for all notes
-    all_notes = DBNotes.query.order_by(DBNotes.timestamp.desc()).all()
+    all_notes = DBNotes.query.order_by(DBNotes.time_last_modify.desc()).all()
 
     # obtain the form
     form = NewNoteForm()

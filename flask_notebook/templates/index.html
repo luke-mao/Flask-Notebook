@@ -18,19 +18,39 @@
 
     <br>
 
-    <h5>
-        Total {{ all_notes | length }} notes
-        <small class="float-right">
-            <a href="#bottom" title="Go Bottom">&darr;</a>
-        </small>
-    </h5>
+    <div class="container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Total {{all_notes | length }} notes</th>
+                    <th>Select</th>
+                </tr>
+            </thead>
 
-    <div class="list-group">
-        {% for note in all_notes %}
-            <a class="list-group-item, list-group-item-action flex-column">
-                <p class="mb-1">{{ note.body }}</p>
-                <small>{{ note.timestamp.strftime('%Y-%m-%d %H:%M') }}</small>
-            </a><br>
-        {% endfor %}
+            <tbody>
+                {% for note in all_notes %}
+                    <tr>
+                        <td style="width: 95%">
+                            <p>{{ note.body }}</p>
+                            <span>
+                                <small>Created at {{ note.time_create.strftime('%Y-%m-%d %H:%M') }}</small>
+
+                                {# if the time_create and time_last_modify are the same #}
+                                {# then just show the time create #}
+                                {% if note.time_create != note.time_last_modify %}
+                                    <small>&nbsp;Last modified at {{note.time_last_modify.strftime('%Y-%m-%d %H:%M')}}</small>
+                                {% endif %}
+                            </span>
+                        </td>
+
+                        <td style="width: 5%">
+                            {# remove the blue border of the checkbox #}
+                            <input style="box-shadow:none" type="checkbox" class="form-control form-control-sm" name="select" value="{{note.id}}">
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+
 {% endblock content %}
