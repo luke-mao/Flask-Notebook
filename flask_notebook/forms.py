@@ -11,3 +11,8 @@ class NewNoteForm(FlaskForm):
     submit = SubmitField()      # submit button: no need for label
 
 
+class EditNoteForm(FlaskForm):
+    body = TextAreaField(validators=[DataRequired(), Length(1, 200)])
+    submit = SubmitField()
+
+

@@ -8,49 +8,57 @@
 {% endblock header %}
 
 {% block content %}
-    <form method="post">
+    <form method="POST">
         {{ form.csrf_token }}
         <div class="form-group required">
-            {{ form_field(form.body, class='form-control') }}
+            {{ form_field(form.body, class='form-control', placeholder='Please enter new note:') }}
         </div>
-        {{ form.submit(class='btn btn-secondary') }}
+        {{ form.submit(class='btn btn-secondary', value='New Note Submit') }}
     </form>
 
     <br>
 
-    <div class="container">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Total {{all_notes | length }} notes</th>
-                    <th>Select</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                {% for note in all_notes %}
+    <form method="POST" action="/edit_notes">
+        <div class="container">
+            <table class="table table-hover">
+                <thead>
                     <tr>
-                        <td style="width: 95%">
-                            <p>{{ note.body }}</p>
-                            <span>
-                                <small>Created at {{ note.time_create.strftime('%Y-%m-%d %H:%M') }}</small>
-
-                                {# if the time_create and time_last_modify are the same #}
-                                {# then just show the time create #}
-                                {% if note.time_create != note.time_last_modify %}
-                                    <small>&nbsp;Last modified at {{note.time_last_modify.strftime('%Y-%m-%d %H:%M')}}</small>
-                                {% endif %}
-                            </span>
-                        </td>
-
-                        <td style="width: 5%">
-                            {# remove the blue border of the checkbox #}
-                            <input style="box-shadow:none" type="checkbox" class="form-control form-control-sm" name="select" value="{{note.id}}">
-                        </td>
+                        <th>Total {{all_notes | length }} notes</th>
+                        <th>
+                            <input type="submit" class="btn btn-primary" name="Edit" value="Edit">
+                        </th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                </thead>
+
+
+                <tbody>
+                    {% for note in all_notes %}
+                        <tr>
+                            <td style="width: 90%">
+                                <p>{{ note.body }}</p>
+                                <span>
+                                    <small>Created at {{ note.time_create.strftime('%Y-%m-%d %H:%M') }}</small>
+
+                                    {# if the time_create and time_last_modify are the same #}
+                                    {# then just show the time create #}
+                                    {% if note.time_create != note.time_last_modify %}
+                                        <small>&nbsp;Last modified at {{note.time_last_modify.strftime('%Y-%m-%d %H:%M')}}</small>
+                                    {% endif %}
+                                </span>
+                            </td>
+
+                            <td style="width: 10%">
+                                {# remove the blue border of the checkbox #}
+                                <input style="box-shadow:none" type="checkbox" class="form-control form-control-sm" name="select" value="{{note.id}}">
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </form>
+
+
+
 
 {% endblock content %}
