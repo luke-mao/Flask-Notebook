@@ -5,6 +5,13 @@
 
 {% block header %}
     <h1>Welcome to the notebook</h1>
+
+    {# display the flash message #}
+    {% if get_flashed_messages() %}
+        {% for message in get_flashed_messages() %}
+            <div class="alert alert-primary" role="alert">{{message}}</div>
+        {% endfor %}
+    {% endif %}
 {% endblock header %}
 
 {% block content %}
@@ -26,28 +33,29 @@
                         <th>Total {{all_notes | length }} notes</th>
                         <th>
                             <input type="submit" class="btn btn-primary" name="Edit" value="Edit">
+                            <input type="submit" class="btn btn-primary" name="Delete" value="Delete">
                         </th>
                     </tr>
                 </thead>
 
-
                 <tbody>
                     {% for note in all_notes %}
                         <tr>
-                            <td style="width: 90%">
+                            <td style="width: 85%">
                                 <p>{{ note.body }}</p>
                                 <span>
-                                    <small>Created at {{ note.time_create.strftime('%Y-%m-%d %H:%M') }}</small>
-
+                                    {# show last modified time, and creation time #}
                                     {# if the time_create and time_last_modify are the same #}
                                     {# then just show the time create #}
                                     {% if note.time_create != note.time_last_modify %}
-                                        <small>&nbsp;Last modified at {{note.time_last_modify.strftime('%Y-%m-%d %H:%M')}}</small>
+                                        <small>Last modified at {{note.time_last_modify.strftime('%Y-%m-%d %H:%M')}}</small>
                                     {% endif %}
+
+                                    <small>&nbsp;Created at {{ note.time_create.strftime('%Y-%m-%d %H:%M') }}</small>
                                 </span>
                             </td>
 
-                            <td style="width: 10%">
+                            <td style="width: 15%">
                                 {# remove the blue border of the checkbox #}
                                 <input style="box-shadow:none" type="checkbox" class="form-control form-control-sm" name="select" value="{{note.id}}">
                             </td>
