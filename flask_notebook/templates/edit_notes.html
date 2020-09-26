@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import form_field %}
+
+{% block title %}Edit Notes{% endblock title %}
+
+{% block content %}
+    <h2>Edit Notes</h2><br>
+
+    <form method="POST">
+        {% for each_form in form_list %}
+            <div class="form-group">
+                {{ form_field(each_form.body, class='form-control') }}
+            </div>
+            <br>
+        {% endfor %}
+        <input type="submit" class="btn btn-secondary", name='Submit Changes' value="Submit Changes">
+    </form>
+
+{% endblock content %}

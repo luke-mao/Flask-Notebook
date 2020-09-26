@@ -75,7 +75,8 @@ def edit_notes():
             db.session.delete(this_note)
             db.session.commit()
 
-        flash('Successfully delete {} notes'.format(len(note_id_list_to_delete)))
+        current = datetime.now()
+        flash('Successfully delete {} notes at {}'.format(len(note_id_list_to_delete), current.strftime('%Y-%m-%d %H:%M')))
         return redirect(url_for('index'))
 
     elif request.form.get('Submit Changes'):
@@ -114,5 +115,5 @@ def edit_notes():
         return redirect(url_for('index'))
 
     else:
-        return 'hello'
+        render_template('errors/404.html')
 
