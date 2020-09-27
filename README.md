@@ -15,7 +15,7 @@ The front end uses bootstrap 4. The server end uses python flask and sqlalchemy.
 clone: 
 ```
 $ git clone git@github.com:luke-mao/Flask-Notebook.git
-$ cd flask_notebook
+$ cd Flask-Notebook
 ```
 
 install all dependencies:
